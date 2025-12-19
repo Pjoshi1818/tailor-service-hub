@@ -3,6 +3,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import TailorList from "./pages/TailorList";
+import PlaceOrder from "./pages/PlaceOrder";
+
+
 
 export default function App() {
   return (
@@ -21,6 +25,23 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+  path="/tailors"
+  element={
+    <ProtectedRoute>
+      <TailorList />
+    </ProtectedRoute>
+  }
+/>
+<Route 
+path="/order"
+element ={
+  <ProtectedRoute>
+    <PlaceOrder />
+  </ProtectedRoute>
+} />
+
       </Routes>
     </BrowserRouter>
   );

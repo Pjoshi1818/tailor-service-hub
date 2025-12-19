@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function TailorDashboard() {
@@ -8,13 +9,15 @@ export default function TailorDashboard() {
       <h1 className="text-2xl font-bold">
         Tailor Dashboard
       </h1>
+
       <p className="mt-2">Welcome, {user.name}</p>
 
-      <div className="mt-6 bg-gray-800 p-4 rounded">
-        <p>• Create Tailor Profile</p>
-        <p>• View Orders</p>
-        <p>• Update Order Status</p>
-      </div>
+      <Link
+        to="/tailor/orders"
+        className="inline-block mt-6 bg-blue-500 px-4 py-2 rounded"
+      >
+        View Orders
+      </Link>
     </div>
   );
 }

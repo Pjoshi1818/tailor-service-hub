@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function CustomerDashboard() {
@@ -8,13 +9,15 @@ export default function CustomerDashboard() {
       <h1 className="text-2xl font-bold">
         Customer Dashboard
       </h1>
+
       <p className="mt-2">Welcome, {user.name}</p>
 
-      <div className="mt-6 bg-gray-800 p-4 rounded">
-        <p>• View Tailors</p>
-        <p>• Place Orders</p>
-        <p>• Track Orders</p>
-      </div>
+      <Link
+        to="/tailors"
+        className="inline-block mt-6 bg-green-500 px-4 py-2 rounded"
+      >
+        View Tailors
+      </Link>
     </div>
   );
 }
