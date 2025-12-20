@@ -1,6 +1,8 @@
-import { useAuth } from "../context/AuthContext";
 import CustomerDashboard from "./CustomerDashboard";
 import TailorDashboard from "./TailorDashboard";
+import AdminDashboard from "./AdminDashboard";
+import { useAuth } from "../context/AuthContext";
+
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -11,6 +13,10 @@ export default function Dashboard() {
 
   if (user.role === "tailor") {
     return <TailorDashboard />;
+  }
+
+  if (user.role === "admin") {
+    return <AdminDashboard />;
   }
 
   return <p className="text-white">No dashboard available</p>;

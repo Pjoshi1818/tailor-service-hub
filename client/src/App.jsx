@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import TailorList from "./pages/TailorList";
 import PlaceOrder from "./pages/PlaceOrder";
+import TailorOrders from "./pages/TailorOrders";
 
 
 
@@ -41,6 +42,15 @@ element ={
     <PlaceOrder />
   </ProtectedRoute>
 } />
+<Route
+  path="/tailor/orders"
+  element={
+    <ProtectedRoute>
+      <TailorOrders />
+    </ProtectedRoute>
+  }
+/>
+
 
       </Routes>
     </BrowserRouter>

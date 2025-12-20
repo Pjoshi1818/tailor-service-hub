@@ -3,6 +3,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 
+
+
 // Load env
 dotenv.config();
 
@@ -33,6 +35,10 @@ app.use("/api/tailors", tailorRoutes);
 
 const orderRoutes = require("./routes/orderRoutes");
 app.use("/api/orders", orderRoutes);
+
+const adminRoutes = require("./routes/adminRoutes");
+app.use("/api/admin", adminRoutes);
+
 
 
 // Port
