@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// 👇 THIS EXPORT WAS MISSING / BROKEN
 export const useAuth = () => {
   return useContext(AuthContext);
 };
+

@@ -1,1 +1,7 @@
 @import "tailwindcss";
+@import "tailwindcss/preflight";
+
+/* optional global style */
+body {
+  margin: 0;
+}
