@@ -3,24 +3,55 @@ import { useNavigate } from "react-router-dom";
 export default function TailorCard({ tailor }) {
   const navigate = useNavigate();
 
-  return (
-    <div className="bg-gray-800 p-4 rounded shadow text-white">
-      <h3 className="text-xl font-bold">{tailor.shopName}</h3>
+  const handlePlaceOrder = () => {
+    navigate("/order", { state: { tailor } });
+  };
 
-      <p className="text-sm mt-1">Location: {tailor.location}</p>
-      <p className="text-sm">Experience: {tailor.experience} years</p>
-      <p className="text-sm mt-2">
-        Services: {tailor.services.join(", ")}
-      </p>
+  return (
+    <div className="group rounded-2xl border border-slate-800/60 bg-slate-900/40 p-6 shadow-xl shadow-slate-950/30 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/40 hover:shadow-2xl hover:shadow-emerald-500/10">
+      <h3 className="text-xl font-bold text-slate-50 transition-colors duration-300 group-hover:text-emerald-400">
+        {tailor.shopName}
+      </h3>
+
+      <div className="mt-4 space-y-2 text-sm text-slate-400">
+        <p className="flex items-center gap-2">
+          <span className="text-slate-500">📍</span>
+          <span>{tailor.location}</span>
+        </p>
+        {tailor.experience && (
+          <p className="flex items-center gap-2">
+            <span className="text-slate-500">⏱️</span>
+            <span>{tailor.experience} years experience</span>
+          </p>
+        )}
+        {tailor.priceRange && (
+          <p className="flex items-center gap-2">
+            <span className="text-slate-500">💰</span>
+            <span>{tailor.priceRange}</span>
+          </p>
+        )}
+      </div>
+
+      {tailor.services && tailor.services.length > 0 && (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {tailor.services.map((service, idx) => (
+            <span
+              key={idx}
+              className="inline-flex items-center rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400"
+            >
+              {service}
+            </span>
+          ))}
+        </div>
+      )}
 
       <button
-        onClick={() =>
-          navigate("/order", { state: { tailor } })
-        }
-        className="mt-4 bg-green-500 px-3 py-1 rounded"
+        onClick={handlePlaceOrder}
+        className="mt-6 w-full rounded-xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-600/20 transition-all duration-200 hover:bg-emerald-500 hover:shadow-xl hover:shadow-emerald-500/30 active:scale-95"
       >
         Place Order
       </button>
     </div>
   );
 }
+

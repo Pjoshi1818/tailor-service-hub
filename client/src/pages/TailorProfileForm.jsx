@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { createTailorProfile } from "../api/tailorApi";
 import { useNavigate } from "react-router-dom";
+import InputField from "../components/InputField";
+import Loader from "../components/Loader";
 
 export default function TailorProfileForm() {
   const navigate = useNavigate();
@@ -12,85 +14,124 @@ export default function TailorProfileForm() {
     location: "",
     experience: "",
   });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setLoading(true);
+
     try {
       await createTailorProfile({
         shopName: form.shopName,
-        services: form.services.split(",").map((s) => s.trim()),
+        services: form.services.split(",").map((s) => s.trim()).filter(Boolean),
         priceRange: form.priceRange,
         location: form.location,
-        experience: Number(form.experience),
+        experience: form.experience ? Number(form.experience) : undefined,
       });
 
       alert("Profile submitted. Waiting for admin approval.");
-      navigate("/"); // back to dashboard
+      navigate("/");
     } catch (error) {
-      alert(
-        error.response?.data?.message ||
-          "Failed to create profile"
+      setError(
+        error.response?.data?.message || "Failed to create profile. Please try again."
       );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-800 p-6 rounded w-96 text-white space-y-3"
-      >
-        <h2 className="text-xl font-bold text-center">
-          Create Tailor Profile
-        </h2>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-6">
+      <div className="w-full max-w-2xl">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-slate-900/80 backdrop-blur-sm p-8 rounded-2xl text-white space-y-6 border border-slate-800/60 shadow-2xl"
+        >
+          <div className="space-y-2 text-center">
+            <h2 className="text-2xl font-bold">Create Tailor Profile</h2>
+            <p className="text-sm text-slate-400">
+              Fill in your shop details to get started
+            </p>
+          </div>
 
-        <input
-          name="shopName"
-          placeholder="Shop Name"
-          onChange={handleChange}
-          className="w-full p-2 rounded text-black"
-          required
-        />
+          {error && (
+            <div className="rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3">
+              <p className="text-sm text-red-400">{error}</p>
+            </div>
+          )}
 
-        <input
-          name="services"
-          placeholder="Services (comma separated)"
-          onChange={handleChange}
-          className="w-full p-2 rounded text-black"
-          required
-        />
+          <div className="space-y-4">
+            <InputField
+              id="shopName"
+              label="Shop Name"
+              placeholder="Enter your shop name"
+              value={form.shopName}
+              onChange={handleChange}
+              name="shopName"
+              required
+            />
 
-        <input
-          name="priceRange"
-          placeholder="Price Range (e.g. 500-2000)"
-          onChange={handleChange}
-          className="w-full p-2 rounded text-black"
-        />
+            <InputField
+              id="services"
+              label="Services"
+              placeholder="e.g., Kurta, Blouse, Suit, Saree"
+              value={form.services}
+              onChange={handleChange}
+              name="services"
+              required
+              helperText="Separate multiple services with commas"
+            />
 
-        <input
-          name="location"
-          placeholder="Location"
-          onChange={handleChange}
-          className="w-full p-2 rounded text-black"
-          required
-        />
+            <InputField
+              id="priceRange"
+              label="Price Range"
+              placeholder="e.g., 500-2000"
+              value={form.priceRange}
+              onChange={handleChange}
+              name="priceRange"
+              helperText="Optional: Enter your typical price range"
+            />
 
-        <input
-          name="experience"
-          type="number"
-          placeholder="Experience (years)"
-          onChange={handleChange}
-          className="w-full p-2 rounded text-black"
-        />
+            <InputField
+              id="location"
+              label="Location"
+              placeholder="Enter your shop location"
+              value={form.location}
+              onChange={handleChange}
+              name="location"
+              required
+            />
 
-        <button className="w-full bg-green-500 p-2 rounded">
-          Submit Profile
-        </button>
-      </form>
+            <InputField
+              id="experience"
+              label="Experience (Years)"
+              type="number"
+              placeholder="Enter years of experience"
+              value={form.experience}
+              onChange={handleChange}
+              name="experience"
+              helperText="Optional: Years of tailoring experience"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white p-3 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:from-green-400 hover:to-emerald-500 hover:shadow-xl active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          >
+            {loading && <Loader size="sm" />}
+            <span>Submit Profile</span>
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
+

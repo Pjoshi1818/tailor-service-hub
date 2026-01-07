@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
-import {
-  getTailorOrders,
-  updateOrderStatus,
-} from "../api/orderApi";
+import { getTailorOrders, updateOrderStatus } from "../api/orderApi";
+import StatusBadge from "../components/StatusBadge";
+import Loader from "../components/Loader";
+import EmptyState from "../components/EmptyState";
+import Card from "../components/Card";
 
 export default function TailorOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [updating, setUpdating] = useState(null);
 
   const fetchOrders = async () => {
     try {
+      setError("");
       const res = await getTailorOrders();
       setOrders(res.data);
     } catch (err) {
-      alert("Failed to load orders");
+      setError("Failed to load orders. Please try again.");
+      console.error("Failed to load orders:", err);
     } finally {
       setLoading(false);
     }
@@ -24,61 +29,119 @@ export default function TailorOrders() {
   }, []);
 
   const handleStatusChange = async (id, status) => {
-    await updateOrderStatus(id, status);
-    fetchOrders();
+    setUpdating(id);
+    try {
+      await updateOrderStatus(id, status);
+      await fetchOrders(); // Refresh list
+    } catch (err) {
+      alert(err.response?.data?.message || "Failed to update order status");
+    } finally {
+      setUpdating(null);
+    }
   };
 
-  if (loading) return <p className="text-white p-6">Loading orders...</p>;
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+        <div className="text-center">
+          <Loader size="lg" />
+          <p className="mt-4 text-sm font-medium text-slate-400">Loading orders...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
+        <div className="mx-auto max-w-4xl">
+          <div className="rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3">
+            <p className="text-sm text-red-400">{error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6 bg-gray-900 min-h-screen text-white">
-      <h1 className="text-2xl font-bold mb-4">My Orders</h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
+      <div className="mx-auto max-w-4xl">
+        <h1 className="mb-6 text-3xl font-bold text-slate-50">My Orders</h1>
 
-      {orders.length === 0 && <p>No orders yet</p>}
+        {orders.length === 0 ? (
+          <EmptyState
+            icon="📋"
+            title="No Orders Yet"
+            description="You don't have any orders at the moment. Orders will appear here once customers place them."
+          />
+        ) : (
+          <div className="space-y-4">
+            {orders.map((order) => (
+              <Card key={order._id} className="p-6">
+                <div className="space-y-3">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-slate-50">
+                        {order.serviceType}
+                      </h3>
+                      <p className="mt-1 text-sm text-slate-400">
+                        Customer: {order.customer?.name || "N/A"}
+                      </p>
+                    </div>
+                    <StatusBadge status={order.status} />
+                  </div>
 
-      {orders.map((order) => (
-        <div
-          key={order._id}
-          className="bg-gray-800 p-4 mb-3 rounded"
-        >
-          <p>Service: {order.serviceType}</p>
-          <p>Description: {order.description}</p>
-          <p>Status: {order.status}</p>
+                  <div className="space-y-2 text-sm">
+                    <p className="text-slate-300">
+                      <span className="font-medium">Description:</span> {order.description}
+                    </p>
+                    {order.price && (
+                      <p className="text-slate-300">
+                        <span className="font-medium">Price:</span> ₹{order.price}
+                      </p>
+                    )}
+                  </div>
 
-          {order.status === "pending" && (
-            <div className="mt-2 space-x-2">
-              <button
-                onClick={() =>
-                  handleStatusChange(order._id, "accepted")
-                }
-                className="bg-green-500 px-3 py-1 rounded"
-              >
-                Accept
-              </button>
+                  <div className="pt-3 border-t border-slate-700">
+                    {order.status === "pending" && (
+                      <div className="flex gap-3">
+                        <button
+                          onClick={() => handleStatusChange(order._id, "accepted")}
+                          disabled={updating === order._id}
+                          className="flex-1 rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-green-500 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        >
+                          {updating === order._id && <Loader size="sm" />}
+                          <span>Accept</span>
+                        </button>
+                        <button
+                          onClick={() => handleStatusChange(order._id, "rejected")}
+                          disabled={updating === order._id}
+                          className="flex-1 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-red-500 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        >
+                          {updating === order._id && <Loader size="sm" />}
+                          <span>Reject</span>
+                        </button>
+                      </div>
+                    )}
 
-              <button
-                onClick={() =>
-                  handleStatusChange(order._id, "rejected")
-                }
-                className="bg-red-500 px-3 py-1 rounded"
-              >
-                Reject
-              </button>
-            </div>
-          )}
-
-          {order.status === "accepted" && (
-            <button
-              onClick={() =>
-                handleStatusChange(order._id, "completed")
-              }
-              className="mt-2 bg-blue-500 px-3 py-1 rounded"
-            >
-              Mark Completed
-            </button>
-          )}
-        </div>
-      ))}
+                    {order.status === "accepted" && (
+                      <button
+                        onClick={() => handleStatusChange(order._id, "completed")}
+                        disabled={updating === order._id}
+                        className="w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-blue-500 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      >
+                        {updating === order._id && <Loader size="sm" />}
+                        <span>Mark Completed</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
+

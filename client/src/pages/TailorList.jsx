@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import { getAllTailors } from "../api/tailorApi";
 import TailorCard from "../components/TailorCard";
+import Loader from "../components/Loader";
+import EmptyState from "../components/EmptyState";
 
 export default function TailorList() {
   const [tailors, setTailors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchTailors = async () => {
       try {
+        setError("");
         const res = await getAllTailors();
         setTailors(res.data);
       } catch (error) {
-        console.error("Failed to fetch tailors");
+        setError("Failed to fetch tailors. Please try again later.");
+        console.error("Failed to fetch tailors:", error);
       } finally {
         setLoading(false);
       }
@@ -22,20 +27,48 @@ export default function TailorList() {
   }, []);
 
   if (loading) {
-    return <p className="text-white p-6">Loading tailors...</p>;
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+        <div className="text-center">
+          <Loader size="lg" />
+          <p className="mt-4 text-sm font-medium text-slate-400">Loading tailors...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
+        <div className="mx-auto max-w-7xl">
+          <div className="rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3">
+            <p className="text-sm text-red-400">{error}</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="p-6 bg-gray-900 min-h-screen">
-      <h1 className="text-2xl font-bold text-white mb-4">
-        Available Tailors
-      </h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
+      <div className="mx-auto max-w-7xl">
+        <h1 className="mb-8 text-3xl font-bold text-slate-50">Available Tailors</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {tailors.map((tailor) => (
-          <TailorCard key={tailor._id} tailor={tailor} />
-        ))}
+        {tailors.length === 0 ? (
+          <EmptyState
+            icon="👔"
+            title="No Tailors Available"
+            description="There are no approved tailors available at the moment. Please check back later."
+          />
+        ) : (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {tailors.map((tailor) => (
+              <TailorCard key={tailor._id} tailor={tailor} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 }
+

@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import RoleRoute from "./RoleRoute";
 
-// pages
+// Pages
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Dashboard from "../pages/Dashboard";
@@ -14,11 +14,11 @@ import TailorOrders from "../pages/TailorOrders";
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* PUBLIC */}
+      {/* Public Routes */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* DASHBOARD (ROLE BASED) */}
+      {/* Protected Dashboard (Role-based routing handled inside Dashboard component) */}
       <Route
         path="/"
         element={
@@ -28,7 +28,7 @@ export default function AppRoutes() {
         }
       />
 
-      {/* CUSTOMER ROUTES */}
+      {/* Customer Routes */}
       <Route
         path="/tailors"
         element={
@@ -51,7 +51,7 @@ export default function AppRoutes() {
         }
       />
 
-      {/* TAILOR ROUTES */}
+      {/* Tailor Routes */}
       <Route
         path="/tailor/profile"
         element={
@@ -76,3 +76,4 @@ export default function AppRoutes() {
     </Routes>
   );
 }
+
