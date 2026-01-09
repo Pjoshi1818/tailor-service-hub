@@ -28,10 +28,10 @@ export default function TailorList() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-slate-950">
         <div className="text-center">
           <Loader size="lg" />
-          <p className="mt-4 text-sm font-medium text-slate-400">Loading tailors...</p>
+          <p className="mt-4 text-sm font-medium text-gray-600 dark:text-slate-400">Loading tailors...</p>
         </div>
       </div>
     );
@@ -39,10 +39,10 @@ export default function TailorList() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
+      <div className="min-h-screen bg-gray-50 dark:bg-slate-950 p-6">
         <div className="mx-auto max-w-7xl">
-          <div className="rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3">
-            <p className="text-sm text-red-400">{error}</p>
+          <div className="rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 px-4 py-3">
+            <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
           </div>
         </div>
       </div>
@@ -50,9 +50,9 @@ export default function TailorList() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 p-6">
       <div className="mx-auto max-w-7xl">
-        <h1 className="mb-8 text-3xl font-bold text-slate-50">Available Tailors</h1>
+        <h1 className="mb-8 text-3xl font-bold text-gray-900 dark:text-slate-50">Available Tailors</h1>
 
         {tailors.length === 0 ? (
           <EmptyState

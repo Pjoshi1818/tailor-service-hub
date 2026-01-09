@@ -26,10 +26,10 @@ export default function InputField({
       {label && (
         <label
           htmlFor={id}
-          className="block text-sm font-medium text-slate-200"
+          className="block text-sm font-medium text-gray-700 dark:text-slate-200"
         >
           {label}
-          {required && <span className="text-emerald-400 ml-1">*</span>}
+          {required && <span className="text-emerald-600 dark:text-emerald-400 ml-1">*</span>}
         </label>
       )}
       <div className="relative">
@@ -46,12 +46,12 @@ export default function InputField({
           aria-invalid={hasError ? "true" : "false"}
           aria-describedby={hasError ? `${id}-error` : undefined}
           className={`block w-full rounded-lg border px-4 py-2.5 text-sm shadow-sm outline-none transition duration-200
-            bg-slate-800/50 text-slate-100
-            placeholder:text-slate-500
+            bg-white dark:bg-slate-800/50 text-gray-900 dark:text-slate-100
+            placeholder:text-gray-500 dark:placeholder:text-slate-500
             ${
               hasError
-                ? "border-red-500/60 bg-red-500/5 focus:border-red-500 focus:ring-2 focus:ring-red-500/40"
-                : "border-slate-700 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/40 hover:border-slate-600"
+                ? "border-red-500 dark:border-red-500/60 bg-red-50 dark:bg-red-500/5 focus:border-red-500 focus:ring-2 focus:ring-red-500/40"
+                : "border-gray-300 dark:border-slate-700 focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/40 hover:border-gray-400 dark:hover:border-slate-600"
             }`}
         />
         {rightElement && (
@@ -61,12 +61,12 @@ export default function InputField({
         )}
       </div>
       {helperText && !hasError && (
-        <p className="text-xs text-slate-400">{helperText}</p>
+        <p className="text-xs text-gray-600 dark:text-slate-400">{helperText}</p>
       )}
       {hasError && (
         <p
           id={`${id}-error`}
-          className="text-xs font-medium text-red-400"
+          className="text-xs font-medium text-red-600 dark:text-red-400"
           role="alert"
         >
           {error}

@@ -38,22 +38,22 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-slate-950 px-4 py-8">
       <div className="w-full max-w-lg">
         <form
           onSubmit={handleSubmit}
-          className="w-full space-y-6 rounded-2xl border border-slate-800/60 bg-slate-900/80 p-10 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:border-slate-700/50"
+          className="w-full space-y-6 rounded-2xl border border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900/80 p-10 shadow-lg dark:shadow-2xl transition-all duration-300 hover:border-gray-300 dark:hover:border-slate-700"
         >
           <div className="space-y-2 text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-50">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-slate-50">
               Create Account
             </h2>
-            <p className="text-sm text-slate-400">Join TailorMarket today</p>
+            <p className="text-sm text-gray-600 dark:text-slate-400">Join TailorMarket today</p>
           </div>
 
           {error && (
-            <div className="rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3">
-              <p className="text-sm text-red-400">{error}</p>
+            <div className="rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 px-4 py-3">
+              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
             </div>
           )}
 
@@ -96,7 +96,7 @@ export default function Register() {
             <div className="space-y-1.5">
               <label
                 htmlFor="role"
-                className="block text-sm font-medium text-slate-200"
+                className="block text-sm font-medium text-gray-700 dark:text-slate-200"
               >
                 Role
               </label>
@@ -105,7 +105,7 @@ export default function Register() {
                 name="role"
                 value={form.role}
                 onChange={handleChange}
-                className="block w-full rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-2.5 text-sm text-slate-100 shadow-sm outline-none transition duration-200 hover:border-slate-600 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/40"
+                className="block w-full rounded-lg border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-800/50 px-4 py-2.5 text-sm text-gray-900 dark:text-slate-100 shadow-sm outline-none transition duration-200 hover:border-gray-400 dark:hover:border-slate-600 focus:border-emerald-500 dark:focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/40"
               >
                 <option value="customer">Customer</option>
                 <option value="tailor">Tailor</option>
@@ -117,12 +117,12 @@ export default function Register() {
             Register
           </AuthButton>
 
-          <p className="text-center text-sm text-slate-400">
+          <p className="text-center text-sm text-gray-600 dark:text-slate-400">
             Already have an account?{" "}
             <button
               type="button"
               onClick={() => navigate("/login")}
-              className="font-medium text-emerald-400 transition-colors duration-200 hover:text-emerald-300"
+              className="font-medium text-emerald-600 dark:text-emerald-400 transition-colors duration-200 hover:text-emerald-700 dark:hover:text-emerald-300"
             >
               Login
             </button>

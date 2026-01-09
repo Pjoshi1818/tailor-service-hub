@@ -42,10 +42,10 @@ export default function TailorOrders() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-slate-950">
         <div className="text-center">
           <Loader size="lg" />
-          <p className="mt-4 text-sm font-medium text-slate-400">Loading orders...</p>
+          <p className="mt-4 text-sm font-medium text-gray-600 dark:text-slate-400">Loading orders...</p>
         </div>
       </div>
     );
@@ -53,10 +53,10 @@ export default function TailorOrders() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
+      <div className="min-h-screen bg-gray-50 dark:bg-slate-950 p-6">
         <div className="mx-auto max-w-4xl">
-          <div className="rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3">
-            <p className="text-sm text-red-400">{error}</p>
+          <div className="rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 px-4 py-3">
+            <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
           </div>
         </div>
       </div>
@@ -64,9 +64,9 @@ export default function TailorOrders() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 p-6">
       <div className="mx-auto max-w-4xl">
-        <h1 className="mb-6 text-3xl font-bold text-slate-50">My Orders</h1>
+        <h1 className="mb-6 text-3xl font-bold text-gray-900 dark:text-slate-50">My Orders</h1>
 
         {orders.length === 0 ? (
           <EmptyState
@@ -81,10 +81,10 @@ export default function TailorOrders() {
                 <div className="space-y-3">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="text-lg font-semibold text-slate-50">
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-slate-50">
                         {order.serviceType}
                       </h3>
-                      <p className="mt-1 text-sm text-slate-400">
+                      <p className="mt-1 text-sm text-gray-600 dark:text-slate-400">
                         Customer: {order.customer?.name || "N/A"}
                       </p>
                     </div>
@@ -92,23 +92,23 @@ export default function TailorOrders() {
                   </div>
 
                   <div className="space-y-2 text-sm">
-                    <p className="text-slate-300">
+                    <p className="text-gray-700 dark:text-slate-300">
                       <span className="font-medium">Description:</span> {order.description}
                     </p>
                     {order.price && (
-                      <p className="text-slate-300">
+                      <p className="text-gray-700 dark:text-slate-300">
                         <span className="font-medium">Price:</span> ₹{order.price}
                       </p>
                     )}
                   </div>
 
-                  <div className="pt-3 border-t border-slate-700">
+                  <div className="pt-3 border-t border-gray-200 dark:border-slate-700">
                     {order.status === "pending" && (
                       <div className="flex gap-3">
                         <button
                           onClick={() => handleStatusChange(order._id, "accepted")}
                           disabled={updating === order._id}
-                          className="flex-1 rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-green-500 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                          className="flex-1 rounded-lg bg-emerald-600 dark:bg-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-emerald-700 dark:hover:bg-emerald-600 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
                           {updating === order._id && <Loader size="sm" />}
                           <span>Accept</span>
@@ -116,7 +116,7 @@ export default function TailorOrders() {
                         <button
                           onClick={() => handleStatusChange(order._id, "rejected")}
                           disabled={updating === order._id}
-                          className="flex-1 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-red-500 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                          className="flex-1 rounded-lg bg-red-600 dark:bg-red-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-red-700 dark:hover:bg-red-600 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                         >
                           {updating === order._id && <Loader size="sm" />}
                           <span>Reject</span>
@@ -128,7 +128,7 @@ export default function TailorOrders() {
                       <button
                         onClick={() => handleStatusChange(order._id, "completed")}
                         disabled={updating === order._id}
-                        className="w-full rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-blue-500 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                        className="w-full rounded-lg bg-emerald-600 dark:bg-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-all duration-200 hover:bg-emerald-700 dark:hover:bg-emerald-600 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                       >
                         {updating === order._id && <Loader size="sm" />}
                         <span>Mark Completed</span>

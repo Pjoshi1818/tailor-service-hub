@@ -13,7 +13,7 @@ export default function Loader({ size = "md" }) {
 
   return (
     <span
-      className={`inline-block animate-spin rounded-full border-current border-t-transparent align-[-0.125em] text-white ${sizeClasses[size]}`}
+      className={`inline-block animate-spin rounded-full border-current border-t-transparent align-[-0.125em] text-emerald-600 dark:text-emerald-400 ${sizeClasses[size]}`}
       role="status"
       aria-label="Loading"
     />

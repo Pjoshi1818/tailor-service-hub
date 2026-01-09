@@ -23,9 +23,9 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 p-6">
       <div className="mx-auto max-w-4xl">
-        <p className="text-white">No dashboard available for this role.</p>
+        <p className="text-gray-900 dark:text-white">No dashboard available for this role.</p>
       </div>
     </div>
   );

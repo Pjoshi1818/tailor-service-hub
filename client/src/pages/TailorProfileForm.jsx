@@ -48,22 +48,22 @@ export default function TailorProfileForm() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 flex items-center justify-center p-6">
       <div className="w-full max-w-2xl">
         <form
           onSubmit={handleSubmit}
-          className="bg-slate-900/80 backdrop-blur-sm p-8 rounded-2xl text-white space-y-6 border border-slate-800/60 shadow-2xl"
+          className="bg-white dark:bg-slate-900/80 backdrop-blur-sm p-8 rounded-2xl text-gray-900 dark:text-white space-y-6 border border-gray-200 dark:border-slate-800 shadow-lg dark:shadow-2xl"
         >
           <div className="space-y-2 text-center">
-            <h2 className="text-2xl font-bold">Create Tailor Profile</h2>
-            <p className="text-sm text-slate-400">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Create Tailor Profile</h2>
+            <p className="text-sm text-gray-600 dark:text-slate-400">
               Fill in your shop details to get started
             </p>
           </div>
 
           {error && (
-            <div className="rounded-lg bg-red-500/10 border border-red-500/30 px-4 py-3">
-              <p className="text-sm text-red-400">{error}</p>
+            <div className="rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/30 px-4 py-3">
+              <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
             </div>
           )}
 
@@ -124,7 +124,7 @@ export default function TailorProfileForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white p-3 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:from-green-400 hover:to-emerald-500 hover:shadow-xl active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="w-full bg-emerald-600 dark:bg-emerald-500 text-white p-3 rounded-lg font-semibold shadow-lg transition-all duration-200 hover:bg-emerald-700 dark:hover:bg-emerald-600 hover:shadow-xl active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {loading && <Loader size="sm" />}
             <span>Submit Profile</span>
