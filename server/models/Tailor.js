@@ -27,9 +27,10 @@ const tailorSchema = new mongoose.Schema(
       type: Number, // years
       default: 0,
     },
-    isApproved: {
-      type: Boolean,
-      default: false, // admin approval later
+    status: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'pending', // admin approval later
     },
   },
   { timestamps: true }

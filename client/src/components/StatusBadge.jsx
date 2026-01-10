@@ -10,6 +10,13 @@ export default function StatusBadge({ status, className = "" }) {
       dot: "bg-amber-600 dark:bg-amber-400",
       label: "Pending",
     },
+    approved: {
+      bg: "bg-emerald-50 dark:bg-emerald-500/15",
+      text: "text-emerald-700 dark:text-emerald-400",
+      border: "border-emerald-300 dark:border-emerald-500/30",
+      dot: "bg-emerald-600 dark:bg-emerald-400",
+      label: "Approved",
+    },
     accepted: {
       bg: "bg-blue-50 dark:bg-blue-500/15",
       text: "text-blue-700 dark:text-blue-400",
