@@ -26,10 +26,29 @@ exports.createTailorProfile = async (req, res) => {
 // GET ALL APPROVED TAILORS (CUSTOMER)
 exports.getAllTailors = async (req, res) => {
   try {
-    const tailors = await Tailor.find({ isApproved: true }).populate(
-      "user",
-      "name email"
-    );
+    const { location, service, priceRange, experience } = req.query;
+
+    // Build query object - always filter by approved status
+    const query = { status: "approved" };
+
+    // Add optional filters
+    if (location) {
+      query.location = new RegExp(location, "i");
+    }
+
+    if (service) {
+      query.services = { $in: [new RegExp(service, "i")] };
+    }
+
+    if (priceRange) {
+      query.priceRange = priceRange;
+    }
+
+    if (experience) {
+      query.experience = { $gte: Number(experience) };
+    }
+
+    const tailors = await Tailor.find(query).populate("user", "name email");
     res.json(tailors);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -41,7 +60,7 @@ exports.getTailorById = async (req, res) => {
   try {
     const tailor = await Tailor.findById(req.params.id).populate(
       "user",
-      "name email"
+      "name email",
     );
 
     if (!tailor) {

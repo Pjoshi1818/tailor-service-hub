@@ -7,7 +7,7 @@ exports.createOrder = async (req, res) => {
     const { tailorId, serviceType, description, price } = req.body;
 
     const tailor = await Tailor.findById(tailorId);
-    if (!tailor || !tailor.isApproved) {
+    if (!tailor || tailor.status !== "approved") {
       return res.status(400).json({ message: "Invalid tailor" });
     }
 

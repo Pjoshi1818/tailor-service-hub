@@ -1,29 +1,21 @@
-# Admin Dashboard Implementation Plan
+# TODO: Add Tailor Filters to Project
 
-## 1. Update Tailor Model
-- [ ] Add status field ['pending', 'approved', 'rejected'] to Tailor.js model
+## Backend Updates
 
-## 2. Server Updates
-- [ ] Add rejectTailor function to adminController.js
-- [ ] Add getAllTailors function to adminController.js
-- [ ] Add getAllCustomers function to adminController.js
-- [ ] Update approveTailor to set status to 'approved'
-- [ ] Add corresponding routes in adminRoutes.js
+- [x] Update `server/controllers/tailorController.js`:
+  - Change `isApproved: true` to `status: "approved"`
+  - Add query parameter support: location, service, priceRange, experience
 
-## 3. Client Updates
-- [ ] Add rejectTailor to adminApi.js
-- [ ] Add getAllTailors to adminApi.js
-- [ ] Add getAllCustomers to adminApi.js
-- [ ] Redesign AdminDashboard.jsx with tabs for Pending Tailors, All Tailors, All Customers
-- [ ] Implement approve/reject actions for Pending Tailors
-- [ ] Add status badges for All Tailors and All Customers sections
+- [x] Update `server/routes/tailorRoutes.js`:
+  - No changes needed (route already exists)
 
-## 4. UI Enhancements
-- [ ] Ensure clean, scalable design with minimal destructive actions
-- [ ] Use StatusBadge component for status indicators
-- [ ] Implement role-safe access
+## Frontend Updates
 
-## 5. Testing and Followup
-- [ ] Test admin routes and dashboard functionality
-- [ ] Ensure no disruption to existing auth logic
-- [ ] Verify protected routes work correctly
+- [x] Update `client/src/api/tailorApi.js`:
+  - Modify `getAllTailors` to accept query parameters
+
+- [x] Update `client/src/pages/TailorList.jsx`:
+  - Add filter state variables
+  - Integrate FilterBar component
+  - Call API with query parameters
+  - Keep loading and error handling working
