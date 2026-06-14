@@ -10,6 +10,8 @@ import TailorList from "../pages/TailorList";
 import PlaceOrder from "../pages/PlaceOrder";
 import TailorProfileForm from "../pages/TailorProfileForm";
 import TailorOrders from "../pages/TailorOrders";
+import PostsFeed from "../pages/PostsFeed";
+import TailorPostForm from "../pages/TailorPostForm";
 
 export default function AppRoutes() {
   return (
@@ -73,7 +75,27 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+      {/* Posts Routes */}
+      <Route
+        path="/posts"
+        element={
+          <ProtectedRoute>
+            <PostsFeed />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/tailor/posts/new"
+        element={
+          <ProtectedRoute>
+            <RoleRoute allowed={["tailor"]}>
+              <TailorPostForm />
+            </RoleRoute>
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 }
-

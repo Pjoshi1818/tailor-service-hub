@@ -10,3 +10,5 @@ export const getTailorOrders = () => api.get("/orders/tailor");
 export const updateOrderStatus = (id, status) =>
   api.put(`/orders/${id}/status`, { status });
 
+// Get customer orders
+export const getCustomerOrders = () => api.get("/orders/customer");

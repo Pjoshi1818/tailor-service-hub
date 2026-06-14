@@ -1,21 +1,27 @@
-# TODO: Add Tailor Filters to Project
+# Tailor Posts Feature Implementation - TODO
 
-## Backend Updates
+## Plan Steps (Approved)
 
-- [x] Update `server/controllers/tailorController.js`:
-  - Change `isApproved: true` to `status: "approved"`
-  - Add query parameter support: location, service, priceRange, experience
+### Backend (5 steps)
 
-- [x] Update `server/routes/tailorRoutes.js`:
-  - No changes needed (route already exists)
+- [x] 1. Create `server/models/Post.js`
+- [x] 2. Create `server/controllers/postController.js`
 
-## Frontend Updates
+- [x] 3. Create `server/routes/postRoutes.js`
 
-- [x] Update `client/src/api/tailorApi.js`:
-  - Modify `getAllTailors` to accept query parameters
+- [x] 4. Edit `server/server.js` to mount `/api/posts`
+- [x] 5. Test backend APIs (manual via terminal/Postman)
 
-- [x] Update `client/src/pages/TailorList.jsx`:
-  - Add filter state variables
-  - Integrate FilterBar component
-  - Call API with query parameters
-  - Keep loading and error handling working
+### Frontend (7 steps)
+
+- [x] 6. Create `client/src/api/postsApi.js`
+- [x] 7. Create `client/src/pages/PostsFeed.jsx`
+- [x] 8. Create `client/src/pages/TailorPostForm.jsx`
+- [x] 9. Edit `client/src/pages/TailorDashboard.jsx` (add Posts cards)
+- [x] 10. Edit `client/src/routes/AppRoutes.jsx` (add routes)
+- [x] 11. cd client && npm run dev (test UI)
+- [ ] 12. Full test: create post as tailor, view as customer
+
+**Next: Step 1**
+
+Progress: 0/12 complete
