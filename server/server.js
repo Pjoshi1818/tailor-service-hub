@@ -37,8 +37,8 @@ app.use("/api/orders", orderRoutes);
 const adminRoutes = require("./routes/adminRoutes");
 app.use("/api/admin", adminRoutes);
 
-const postRoutes = require("./routes/postRoutes");
-app.use("/api/posts", postRoutes);
+// const postRoutes = require("./routes/postRoutes");
+// app.use("/api/posts", postRoutes);
 
 // Port
 const PORT = process.env.PORT || 5000;
