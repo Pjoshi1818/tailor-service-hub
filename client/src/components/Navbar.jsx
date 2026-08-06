@@ -55,6 +55,12 @@ export default function Navbar() {
                 >
                   Tailors
                 </Link>
+                <Link
+                  to="/profile"
+                  className="text-sm font-medium text-gray-700 dark:text-slate-300 transition-all duration-200 hover:text-emerald-600 dark:hover:text-emerald-400"
+                >
+                  My Profile
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="text-sm font-medium text-gray-700 dark:text-slate-300 transition-all duration-200 hover:text-red-600 dark:hover:text-red-400"
@@ -115,4 +121,3 @@ export default function Navbar() {
     </nav>
   );
 }
-

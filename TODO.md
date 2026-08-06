@@ -1,27 +1,19 @@
-# Tailor Posts Feature Implementation - TODO
+# Customer Profile Feature - Implementation Tasks
 
-## Plan Steps (Approved)
+## Backend
 
-### Backend (5 steps)
+- [x] 1. Add `phone`, `address`, `avatar` fields to `User` model
+- [x] 2. Create `server/controllers/customerController.js` (getMyProfile, updateMyProfile)
+- [x] 3. Create `server/routes/customerRoutes.js` (GET/PUT /profile)
+- [x] 4. Mount customer routes in `server/server.js`
 
-- [x] 1. Create `server/models/Post.js`
-- [x] 2. Create `server/controllers/postController.js`
+## Frontend
 
-- [x] 3. Create `server/routes/postRoutes.js`
+- [x] 5. Create `client/src/api/customerApi.js`
+- [x] 6. Create `client/src/pages/CustomerProfile.jsx`
+- [x] 7. Add `/profile` route in `AppRoutes.jsx`
+- [x] 8. Add "My Profile" nav link for customers in `Navbar.jsx`
 
-- [x] 4. Edit `server/server.js` to mount `/api/posts`
-- [x] 5. Test backend APIs (manual via terminal/Postman)
+## Verification
 
-### Frontend (7 steps)
-
-- [x] 6. Create `client/src/api/postsApi.js`
-- [x] 7. Create `client/src/pages/PostsFeed.jsx`
-- [x] 8. Create `client/src/pages/TailorPostForm.jsx`
-- [x] 9. Edit `client/src/pages/TailorDashboard.jsx` (add Posts cards)
-- [x] 10. Edit `client/src/routes/AppRoutes.jsx` (add routes)
-- [x] 11. cd client && npm run dev (test UI)
-- [ ] 12. Full test: create post as tailor, view as customer
-
-**Next: Step 1**
-
-Progress: 0/12 complete
+- [x] 9. Manual testing checklist (see final report)

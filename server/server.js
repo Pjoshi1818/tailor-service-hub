@@ -37,6 +37,9 @@ app.use("/api/orders", orderRoutes);
 const adminRoutes = require("./routes/adminRoutes");
 app.use("/api/admin", adminRoutes);
 
+const customerRoutes = require("./routes/customerRoutes");
+app.use("/api/customer", customerRoutes);
+
 // const postRoutes = require("./routes/postRoutes");
 // app.use("/api/posts", postRoutes);
 

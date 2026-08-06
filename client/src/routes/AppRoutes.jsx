@@ -10,8 +10,9 @@ import TailorList from "../pages/TailorList";
 import PlaceOrder from "../pages/PlaceOrder";
 import TailorProfileForm from "../pages/TailorProfileForm";
 import TailorOrders from "../pages/TailorOrders";
-import PostsFeed from "../pages/PostsFeed";
-import TailorPostForm from "../pages/TailorPostForm";
+// import PostsFeed from "../pages/PostsFeed";
+// import TailorPostForm from "../pages/TailorPostForm";
+import CustomerProfile from "../pages/CustomerProfile";
 
 export default function AppRoutes() {
   return (
@@ -53,6 +54,17 @@ export default function AppRoutes() {
         }
       />
 
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <RoleRoute allowed={["customer"]}>
+              <CustomerProfile />
+            </RoleRoute>
+          </ProtectedRoute>
+        }
+      />
+
       {/* Tailor Routes */}
       <Route
         path="/tailor/profile"
@@ -77,16 +89,16 @@ export default function AppRoutes() {
       />
 
       {/* Posts Routes */}
-      <Route
+      {/* <Route
         path="/posts"
         element={
           <ProtectedRoute>
             <PostsFeed />
           </ProtectedRoute>
         }
-      />
+      /> */}
 
-      <Route
+      {/* <Route
         path="/tailor/posts/new"
         element={
           <ProtectedRoute>
@@ -95,7 +107,7 @@ export default function AppRoutes() {
             </RoleRoute>
           </ProtectedRoute>
         }
-      />
+      /> */}
     </Routes>
   );
 }
